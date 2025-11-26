@@ -1,6 +1,23 @@
 #include <iostream>
 using namespace std;
 
+// Primitif
+// Double linked list untuk menyimpan data lagu dan playlist
+
+struct infotype {
+    string idLagu;
+    string title;
+    int duration;
+    string artist;
+    string genre;
+};
+
+struct Song {
+    infotype lagu;
+    Song* next;
+    Song* prev;
+};
+
 // 1. Menu
 // Fungsi untuk menampilkan menu utama
 void menuUtama() {
@@ -84,16 +101,34 @@ void adminMenu() {
 
 // Fungsi Admin nambah lagu
 void adminAddSong() {
+    string namaLagu, namaArtis, genreLagu, idLagu;
+    int durasiLagu;
+    // Admin memasukan lagu baru
+    cout << "Input Id Lagu Baru: ";
+    cin >> idLagu;
+    cout << "Nama Lagu Baru: ";
+    cin >> namaLagu;
+    cout << "Nama Artis lagu: ";
+    cin >> namaArtis;
+    cout << "Durasi Lagu (dalam detik): ";
+    cin >> durasiLagu;
+    cout << "Genre Lagu: ";
+    cin >> genreLagu;
 
+    // proses insert lagu ke database
+
+    cout << "Lagu" << namaLagu << "berhasil ditambahkan!" << endl;
 }
 // Fungsi Admin hapus lagu
 void adminDeleteSong() {
-
+    viewSongs();
 }
+
 // Fungsi Admin update lagu
 void adminUpdateSong() {
 
 }
+
 // Fungsi Admin tampil lagu
 void adminDisplaySongs() {
 
@@ -103,36 +138,44 @@ void adminDisplaySongs() {
 // Fungsi untuk menampilkan menu User
 void userMenu() {
     int pilihan;
+
+    // Tampilkan lagu yang saat ini di play
+    currentlyPlayingSong();
+
     cout << "Menu User" << endl;
-    cout << "1. Cari Lagu" << endl;
-    cout << "2. Putar Lagu" << endl;
-    cout << "3. Stop Lagu" << endl;
-    cout << "4. Next Lagu" << endl;
-    cout << "5. Previous Lagu" << endl;
-    cout << "6. Playlist" << endl;
-    cout << "7. Logout" << endl;
+    cout << "1. Tampilkan Semua Lagu" << endl;
+    cout << "2. Cari Lagu" << endl;
+    cout << "3. Putar Lagu" << endl;
+    cout << "4. Stop Lagu" << endl;
+    cout << "5. Next Lagu" << endl;
+    cout << "6. Previous Lagu" << endl;
+    cout << "7. Playlist" << endl;
+    cout << "8. Logout" << endl;
     cin >> pilihan;
 
     switch (pilihan) {
         case 1:
-            // Fungsi cari lagu
+            viewSongs();
             break;
         case 2:
-            // Fungsi User putar lagu
+            userFindSong();
             break;
         case 3:
-            // Fungsi User stop lagu
+            userPlaySong();
             break;
         case 4:
-            // Fungsi User next lagu
+            userStopSong();
             break;
         case 5:
-            // Fungsi User previous lagu
+            userNextSong();
             break;
         case 6:
-            // Fungsi untuk menampilkan menu playlist
+            userPreviousSong();
             break;
         case 7:
+            userPlaylistMenu();
+            break;
+        case 8:
             menuUtama();
             break;
         default:
@@ -142,17 +185,83 @@ void userMenu() {
     }
 }
 
-// Fungsi cari lagu
-// Fungsi User putar lagu
-// Fungsi User stop lagu
-// Fungsi User next lagu
-// Fungsi User previous lagu
+// Fungsi untuk menampilkan lagu yang sedang diputar
+void currentlyPlayingSong() {
+    // Proses menampilkan lagu yang sedang diputar
+    cout << "Lagu yang sedang diputar: [Judul Lagu] oleh [Artis]" << endl;
+}
 
+// Fungsi untuk menampilkan semua lagu dari database
+void viewSongs() {
+    // Proses menampilkan lagu dari database
+    cout << "Menampilkan semua lagu dari database..." << endl;
+}
+// Fungsi cari lagu
+void userFindSong() {
+    string keyword;
+    cout << "Masukkan kata kunci untuk mencari lagu: ";
+    cin >> keyword;
+    // Proses pencarian lagu dari database
+    cout << "Mencari lagu dengan kata kunci: " << keyword << endl;
+}
+// Fungsi User putar lagu
+void userPlaySong() {
+    string idLagu;
+    cout << "Masukkan ID Lagu yang ingin diputar: ";
+    cin >> idLagu;
+    // Proses memutar lagu dari database
+    cout << "Memutar lagu dengan ID: " << idLagu << endl;
+}
+// Fungsi User stop lagu
+void userStopSong() {
+    // Proses menghentikan lagu yang sedang diputar
+    cout << "Menghentikan lagu yang sedang diputar..." << endl;
+}
+// Fungsi User next lagu
+void userNextSong() {
+    // Proses memutar lagu selanjutnya
+    cout << "Memutar lagu selanjutnya..." << endl;
+}
+// Fungsi User previous lagu
+void userPreviousSong() {
+    // Proses memutar lagu sebelumnya
+    cout << "Memutar lagu sebelumnya..." << endl;
+}
+
+// Playlist
+// Fungsi untuk menampilkan menu playlist user
+void userPlaylistMenu() {
+    int pilihan;
+    cout << "Menu Playlist" << endl;
+    cout << "1. Tambah Lagu ke Playlist" << endl;
+    cout << "2. Hapus Lagu dari Playlist" << endl;
+    cout << "3. Tampilkan Playlist" << endl;
+    cout << "4. Kembali ke Menu User" << endl;
+    cin >> pilihan;
+
+    switch (pilihan) {
+        case 1:
+            // Fungsi nambah lagu ke playlist
+            break;
+        case 2:
+            // Fungsi hapus lagu dari playlist
+            break;
+        case 3:
+            // Fungsi tampil playlist
+            break;
+        case 4:
+            userMenu();
+            break;
+        default:
+            cout << "Input salah!" << endl;
+            userPlaylistMenu();
+            break;
+    }
+}
 // Fungsi untuk menampilkan menu playlist
 // Fungsi nambah lagu ke playlist
 // Fungsi hapus lagu dari playlist
 // Fungsi tampil playlist
-
 
 
 
