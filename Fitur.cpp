@@ -3,6 +3,8 @@ using namespace std;
 
 // Primitif
 // Double linked list untuk menyimpan data lagu dan playlist
+// Single linked list untuk menyimpan data playlist
+// Queue(DLL) untuk pemutaran lagu 
 
 struct infotype {
     string idLagu;
@@ -18,6 +20,58 @@ struct Song {
     Song* prev;
 };
 
+typedef struct elmLagu *address;
+
+struct elmLagu {
+    infotype info;
+    address next;
+    address prev;
+};
+
+struct ListLagu {
+    address First;
+    address Last;
+};
+
+ListLagu MusicLibrary;
+
+typedef struct ElmPlaylist *addrPL;
+
+struct ElmPlaylist {
+    address data;           
+    addrPL next;
+};
+
+struct ListPlaylist {
+    addrPL First;
+};
+
+ListPlaylist UserPlaylist;
+
+typedef struct ElmQueue *addrQ;
+
+struct ElmQueue {
+    address data;           
+    addrQ next;
+    addrQ prev;
+};
+
+struct QueuePlay {
+    addrQ Head;
+    addrQ Tail;
+};
+
+QueuePlay SongQueue;
+
+address nowPlaying = nullptr;
+
+void KondisiAwal() {
+    MusicLibrary.First = nullptr;
+    MusicLibrary.Last  = nullptr;
+    UserPlaylist.First = nullptr;
+    SongQueue.Head = nullptr;
+    SongQueue.Tail = nullptr;
+}
 // 1. Menu
 // Fungsi untuk menampilkan menu utama
 void menuUtama() {
