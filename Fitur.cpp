@@ -2,7 +2,9 @@
 using namespace std;
 
 // Primitif
-// Double linked list untuk menyimpan data lagu dan playlist
+// Double linked list untuk menyimpan data lagu 
+// Single linked list untuk menyimpan data playlist
+// Queue untuk pemutaran lagu 
 
 struct infotype {
     string idLagu;
@@ -17,6 +19,58 @@ struct Song {
     Song* next;
     Song* prev;
 };
+
+typedef struct elmLagu *address;
+
+struct elmLagu {
+    infotype info;
+    elmLagu *next;
+    elmLagu *prev;
+};
+
+struct ListLagu {
+    address First;
+    address Last;
+};
+
+ListLagu MusicLibrary;
+
+typedef struct ElmPlaylist *addrPL;
+
+struct ElmPlaylist {
+    address data;           
+    ElmPlaylist *next;
+};
+
+struct ListPlaylist {
+    addrPL First;
+};
+
+ListPlaylist UserPlaylist;
+
+typedef struct ElmQueue *addrQ;
+
+struct ElmQueue {
+    address data;           
+    ElmQueue *next;
+};
+
+struct QueuePlay {
+    addrQ Head;
+    addrQ Tail;
+};
+
+QueuePlay SongQueue;
+
+address nowPlaying = nullptr;
+
+void KondisiAwal() {
+    MusicLibrary.First = nullptr;
+    MusicLibrary.Last  = nullptr;
+    UserPlaylist.First = nullptr;
+    SongQueue.Head = nullptr;
+    SongQueue.Tail = nullptr;
+}
 
 // 1. Menu
 // Fungsi untuk menampilkan menu utama
@@ -185,7 +239,7 @@ void userMenu() {
     }
 }
 
-// Fungsi untuk menampilkan lagu yang sedang diputar
+// Fungsi untuk menampilkan lagu yang sedang diputar 
 void currentlyPlayingSong() {
     // Proses menampilkan lagu yang sedang diputar
     cout << "Lagu yang sedang diputar: [Judul Lagu] oleh [Artis]" << endl;
