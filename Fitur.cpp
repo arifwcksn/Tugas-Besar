@@ -298,7 +298,35 @@ void userStopSong() {
 // Fungsi User next lagu
 void userNextSong() {
     // Proses memutar lagu selanjutnya
-    cout << "Memutar lagu selanjutnya..." << endl;
+    if (nowPlaying == nullptr) {
+        cout << "Belum ada lagu yang diputar.\n";
+        return;
+    }
+
+    if (nowPlaying->next != nullptr) {
+        nowPlaying = nowPlaying->next;
+        cout << "Memutar lagu berikutnya: "
+             << nowPlaying->data->lagu.title
+             << " - " << nowPlaying->data->lagu.artist << endl;
+        return;
+    }
+
+    if (nowPlaying->data->next != nullptr) {
+        addrQ q = new ElmQueue;
+        q->data = nowPlaying->data->next;
+        q->next = nullptr;
+        q->prev = nowPlaying;
+        nowPlaying->next = q;
+        SongQueue.Tail = q;
+        nowPlaying = q;
+
+        cout << "Memutar lagu berikutnya: "
+             << nowPlaying->data->lagu.title
+             << " - " << nowPlaying->data->lagu.artist << endl;
+        return;
+    }
+
+    cout << "Tidak ada lagu selanjutnya.\n";
 }
 // Fungsi User previous lagu
 void userPreviousSong() {
