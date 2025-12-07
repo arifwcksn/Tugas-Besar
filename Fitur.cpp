@@ -13,17 +13,9 @@ struct infotype {
     string artist;
     string genre;
 };
-
+typedef struct Song *address;
 struct Song {
     infotype lagu;
-    Song* next;
-    Song* prev;
-};
-
-typedef struct elmLagu *address;
-
-struct elmLagu {
-    infotype info;
     address next;
     address prev;
 };
