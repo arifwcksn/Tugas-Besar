@@ -64,6 +64,18 @@ void KondisiAwal() {
     SongQueue.Head = nullptr;
     SongQueue.Tail = nullptr;
 }
+
+address findSong(string id) {
+    address p = MusicLibrary.First;
+    while (p != nullptr) {
+        if (p->lagu.idLagu == id) {
+            return p;
+        }
+        p = p->next;
+    }
+    return nullptr;
+}
+
 // 1. Menu
 // Fungsi untuk menampilkan menu utama
 void menuUtama() {
