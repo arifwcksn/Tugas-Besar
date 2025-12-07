@@ -55,7 +55,7 @@ struct QueuePlay {
 
 QueuePlay SongQueue;
 
-address nowPlaying = nullptr;
+addrQ nowPlaying = nullptr;
 
 void KondisiAwal() {
     MusicLibrary.First = nullptr;
@@ -234,7 +234,13 @@ void userMenu() {
 // Fungsi untuk menampilkan lagu yang sedang diputar
 void currentlyPlayingSong() {
     // Proses menampilkan lagu yang sedang diputar
-    cout << "Lagu yang sedang diputar: [Judul Lagu] oleh [Artis]" << endl;
+    if (nowPlaying == nullptr) {
+        cout << "\nNow Playing: [Tidak ada lagu yang sedang di putar]\n";
+    } else {
+        cout << "\nLagu yang sedang di putar: "
+             << nowPlaying->data->lagu.title
+             << "oleh " << nowPlaying->data->lagu.artist << endl;
+    }
 }
 
 // Fungsi untuk menampilkan semua lagu dari database
