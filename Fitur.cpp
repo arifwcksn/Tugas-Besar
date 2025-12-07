@@ -246,7 +246,20 @@ void currentlyPlayingSong() {
 // Fungsi untuk menampilkan semua lagu dari database
 void viewSongs() {
     // Proses menampilkan lagu dari database
-    cout << "Menampilkan semua lagu dari database..." << endl;
+    address p = MusicLibrary.First;
+    if (p == nullptr) {
+        cout << "Library kosong!\n";
+        return;
+    }
+    cout << "\n===== Music Library =====\n";
+    while (p != nullptr) {
+        cout << "[" << p->lagu.idLagu << "] "
+             << p->lagu.title << " - " << p->lagu.artist
+             << " | " << p->lagu.genre
+             << " | " << p->lagu.duration << "s\n";
+        p = p->next;
+    }
+    cout << "=========================\n";
 }
 // Fungsi cari lagu
 void userFindSong() {
@@ -267,7 +280,8 @@ void userPlaySong() {
 // Fungsi User stop lagu
 void userStopSong() {
     // Proses menghentikan lagu yang sedang diputar
-    cout << "Menghentikan lagu yang sedang diputar..." << endl;
+    nowPlaying = nullptr;
+    cout << "⏹ Lagu dihentikan\n";
 }
 // Fungsi User next lagu
 void userNextSong() {
