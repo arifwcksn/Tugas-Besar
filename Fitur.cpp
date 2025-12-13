@@ -328,6 +328,7 @@ void userNextSong() {
          << nowPlaying->data->lagu.title
          << " - " << nowPlaying->data->lagu.artist << endl;
 }
+
 // Fungsi User previous lagu
 void userPreviousSong() {
     // Proses memutar lagu sebelumnya
@@ -345,7 +346,7 @@ void userPreviousSong() {
     }
 
     address laguSekarang = nowPlaying->data;
-    address p = laguSekarang->prev;
+    address p = MusicLibrary.First;
 
     while (p != nullptr) {
         if (p->lagu.genre == laguSekarang->lagu.genre ||
@@ -365,10 +366,26 @@ void userPreviousSong() {
                  << " - " << nowPlaying->data->lagu.artist << endl;
             return;
         }
-        p = p->prev;
+        p = p->next;
     }
 
-    cout << "Tidak ada lagu sebelumnya.\n";
+    if (MusicLibrary.First == nullptr) {
+        cout << "Library kosong.\n";
+        return;
+    }
+
+    addrQ nodeBaru = new ElmQueue;
+    nodeBaru->data = MusicLibrary.First;
+    nodeBaru->prev = nullptr;
+    nodeBaru->next = nowPlaying;
+
+    nowPlaying->prev = nodeBaru;
+    SongQueue.Head = nodeBaru;
+    nowPlaying = nodeBaru;
+
+    cout << "Memutar lagu sebelumnya: "
+         << nowPlaying->data->lagu.title
+         << " - " << nowPlaying->data->lagu.artist << endl;
 }
 
 // Playlist
