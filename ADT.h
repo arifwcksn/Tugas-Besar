@@ -54,9 +54,18 @@ struct QueuePlay {
     addrQ Tail;
 };
 
+typedef struct ElmFavorit *addrFav;
+
+struct ElmFavorit {
+    address data;     
+    addrFav next;
+};
+
 QueuePlay SongQueue;
 
 addrQ nowPlaying = nullptr;
+
+addrFav Favorit = nullptr;
 
 void adminLogin();
 void userMenu();
@@ -84,4 +93,5 @@ void playlistAddSong();
 void playlistDeleteSong();
 void playlistDisplaySongs();
 
-
+void addFavorit(address Lagu);
+void displayFavorit();
