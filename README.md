@@ -105,7 +105,7 @@ Cara Menjalankan Program (Menggunakan Code::Blocks)
     Isi masing-masing file dengan kode program Aplikasi Musik Player yang sesuai
 
 3. Menghubungkan Header dan Source serta main
-    Caranya adalah dengan menggunakan comman #include "ADT.h"
+    Caranya adalah dengan menggunakan command #include "ADT.h"
     Terkadang juga harus menambahkan using namespace std ke semua file 
 
 4. Build dan Run Program
@@ -130,5 +130,6 @@ Cara Menjalankan Program (Menggunakan Code::Blocks)
     Menggunakan fitur Next dan Previous
 
     Mengelola playlist dan lagu favorit
+
 
     Navigasi menu dilakukan dengan memasukkan angka sesuai pilihan.
