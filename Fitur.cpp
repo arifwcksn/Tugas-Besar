@@ -240,6 +240,7 @@ void userFindSong() {
              << cari->lagu.duration << endl;
     } else if (cari->lagu.artist == keyword) {
         cout << "\nDaftar lagu dengan artist" << keyword << ":\n";
+        address p = MusicLibrary.First;
         while (p != nullptr) {
             if (p->lagu.artist == keyword) {
                 cout << "[" << p->lagu.idLagu << "] "
