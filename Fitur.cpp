@@ -6,56 +6,6 @@ using namespace std;
 // Single linked list untuk menyimpan data playlist
 // Queue(DLL) untuk pemutaran lagu 
 
-struct infotype {
-    string idLagu;
-    string title;
-    int duration;
-    string artist;
-    string genre;
-};
-typedef struct Song *address;
-struct Song {
-    infotype lagu;
-    address next;
-    address prev;
-};
-
-struct ListLagu {
-    address First;
-    address Last;
-};
-
-ListLagu MusicLibrary;
-
-typedef struct ElmPlaylist *addrPL;
-
-struct ElmPlaylist {
-    address data;           
-    addrPL next;
-};
-
-struct ListPlaylist {
-    addrPL First;
-};
-
-ListPlaylist UserPlaylist;
-
-typedef struct ElmQueue *addrQ;
-
-struct ElmQueue {
-    address data;           
-    addrQ next;
-    addrQ prev;
-};
-
-struct QueuePlay {
-    addrQ Head;
-    addrQ Tail;
-};
-
-QueuePlay SongQueue;
-
-addrQ nowPlaying = nullptr;
 
 void KondisiAwal() {
     MusicLibrary.First = nullptr;
@@ -369,10 +319,3 @@ void userPlaylistMenu() {
 // Fungsi hapus lagu dari playlist
 // Fungsi tampil playlist
 
-
-
-int main() {
-   
-
-    return 0;
-}
