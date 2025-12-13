@@ -236,7 +236,8 @@ void userFindSong() {
         cout << "[" << cari->lagu.idLagu << "] "
              << cari->lagu.title << " - "
              << cari->lagu.artist << " | "
-             << cari->lagu.genre << endl;
+             << cari->lagu.genre << << " | " 
+             << cari->lagu.duration << endl;
     } else if (cari->lagu.artist == keyword) {
         cout << "\nDaftar lagu dengan artist" << keyword << ":\n";
         while (p != nullptr) {
