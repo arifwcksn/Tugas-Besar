@@ -250,7 +250,7 @@ void userFindSong() {
             }
             p = p->next;
         }
-    }else if (cari->lagu.genre == keyword) {
+    }else {
         cout << "\nDaftar lagu dengan genre" << keyword << ":\n";
         address p = MusicLibrary.First;
         while (p != nullptr) {
@@ -262,19 +262,15 @@ void userFindSong() {
             }
             p = p->next;
         }
-    } else {
-        cout << "Lagu tidak ditemukan"
     }
 }
 // Fungsi User putar lagu
 void userPlaySong() {
-    string keyword;
-    cout << "Masukkan ID/judul Lagu yang ingin diputar: ";
-    cin >> keyword;
+    string idLagu;
+    cout << "Masukkan ID Lagu yang ingin diputar: ";
+    cin >> idLagu;
     // Proses memutar lagu dari database
-    if (lagu.idLagu == keyword) {
-        cout << "▶ Memutar lagu dengan ID: " << keyword << endl;
-    } else (if lagu.judul == keyword)
+    cout << "▶ Memutar lagu dengan ID: " << idLagu << endl;
 }
 // Fungsi User stop lagu
 void userStopSong() {
@@ -290,35 +286,83 @@ void userNextSong() {
         return;
     }
 
-    if (nowPlaying->next != nullptr) {
-        nowPlaying = nowPlaying->next;
-        cout << "Memutar lagu berikutnya: "
-             << nowPlaying->data->lagu.title
-             << " - " << nowPlaying->data->lagu.artist << endl;
+    address current = nowPlaying->data;
+    address p = current->next;
+
+    while (p != nullptr) {
+        if (p->lagu.genre == current->lagu.genre ||
+            p->lagu.artist == current->lagu.artist) {
+
+            addrQ q = new ElmQueue;
+            q->data = p;
+            q->next = nullptr;
+            q->prev = nowPlaying;
+
+            nowPlaying->next = q;
+            SongQueue.Tail = q;
+            nowPlaying = q;
+
+            cout << "Memutar lagu berikutnya: "
+                 << p->lagu.title
+                 << " - " << p->lagu.artist << endl;
+            return;
+        }
+        p = p->next;
+    }
+
+    if (MusicLibrary.First == nullptr) {
+        cout << "Library kosong.\n";
         return;
     }
 
-    if (nowPlaying->data->next != nullptr) {
-        addrQ q = new ElmQueue;
-        q->data = nowPlaying->data->next;
-        q->next = nullptr;
-        q->prev = nowPlaying;
-        nowPlaying->next = q;
-        SongQueue.Tail = q;
-        nowPlaying = q;
+    addrQ q = new ElmQueue;
+    q->data = MusicLibrary.First;
+    q->next = nullptr;
+    q->prev = nowPlaying;
 
-        cout << "Memutar lagu berikutnya: "
-             << nowPlaying->data->lagu.title
-             << " - " << nowPlaying->data->lagu.artist << endl;
-        return;
-    }
+    nowPlaying->next = q;
+    SongQueue.Tail = q;
+    nowPlaying = q;
 
-    cout << "Tidak ada lagu selanjutnya.\n";
+    cout << "Memutar lagu berikutnya: "
+         << MusicLibrary.First->lagu.title
+         << " - " << MusicLibrary.First->lagu.artist << endl;
 }
 // Fungsi User previous lagu
 void userPreviousSong() {
     // Proses memutar lagu sebelumnya
-    cout << "Memutar lagu sebelumnya..." << endl;
+     if (nowPlaying == nullptr) {
+        cout << "Belum ada lagu yang diputar.\n";
+        return;
+    }
+
+    if (nowPlaying->prev != nullptr) {
+        nowPlaying = nowPlaying->prev;
+        cout << "Memutar lagu sebelumnya: "
+             << nowPlaying->data->lagu.title
+             << " - " << nowPlaying->data->lagu.artist << endl;
+        return;
+    }
+
+    address prevSong = findPrevByGenreOrArtist(nowPlaying->data);
+
+    if (prevSong == nullptr) {
+        cout << "Tidak ada lagu sebelumnya dengan genre atau penyanyi yang sama.\n";
+        return;
+    }
+
+    addrQ q = new ElmQueue;
+    q->data = prevSong;
+    q->next = nowPlaying;
+    q->prev = nullptr;
+
+    nowPlaying->prev = q;
+    SongQueue.Head = q;
+    nowPlaying = q;
+
+    cout << "Memutar lagu sebelumnya: "
+         << nowPlaying->data->lagu.title
+         << " - " << nowPlaying->data->lagu.artist << endl;
 }
 
 // Playlist
@@ -355,4 +399,3 @@ void userPlaylistMenu() {
 // Fungsi nambah lagu ke playlist
 // Fungsi hapus lagu dari playlist
 // Fungsi tampil playlist
-
