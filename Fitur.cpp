@@ -250,7 +250,7 @@ void userFindSong() {
             }
             p = p->next;
         }
-    }else {
+    }else if (cari->lagu.genre == keyword) {
         cout << "\nDaftar lagu dengan genre" << keyword << ":\n";
         address p = MusicLibrary.First;
         while (p != nullptr) {
@@ -262,15 +262,19 @@ void userFindSong() {
             }
             p = p->next;
         }
+    } else {
+        cout << "Lagu tidak ditemukan"
     }
 }
 // Fungsi User putar lagu
 void userPlaySong() {
-    string idLagu;
-    cout << "Masukkan ID Lagu yang ingin diputar: ";
-    cin >> idLagu;
+    string keyword;
+    cout << "Masukkan ID/judul Lagu yang ingin diputar: ";
+    cin >> keyword;
     // Proses memutar lagu dari database
-    cout << "▶ Memutar lagu dengan ID: " << idLagu << endl;
+    if (lagu.idLagu == keyword) {
+        cout << "▶ Memutar lagu dengan ID: " << keyword << endl;
+    } else (if lagu.judul == keyword)
 }
 // Fungsi User stop lagu
 void userStopSong() {
