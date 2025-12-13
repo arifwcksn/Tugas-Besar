@@ -15,10 +15,10 @@ void KondisiAwal() {
     SongQueue.Tail = nullptr;
 }
 
-address findSong(string id) {
+address findSong(string keyword) {
     address p = MusicLibrary.First;
     while (p != nullptr) {
-        if (p->lagu.idLagu == id) {
+        if (p->lagu.title == keyword || p->lagu.artist == keyword || p->lagu.genre == keyword) {
             return p;
         }
         p = p->next;
@@ -226,10 +226,41 @@ void viewSongs() {
 // Fungsi cari lagu
 void userFindSong() {
     string keyword;
+    address cari = findSong(keyword);
     cout << "Masukkan kata kunci untuk mencari lagu: ";
     cin >> keyword;
     // Proses pencarian lagu dari database
     cout << "Mencari lagu dengan kata kunci: " << keyword << endl;
+    if (cari->lagu.title == keyword) {
+        cout << "Lagu ditemukan" << endl;
+        cout << "[" << cari->lagu.idLagu << "] "
+             << cari->lagu.title << " - "
+             << cari->lagu.artist << " | "
+             << cari->lagu.genre << endl;
+    } else if (cari->lagu.artist == keyword) {
+        cout << "\nDaftar lagu dengan artist" << keyword << ":\n";
+        while (p != nullptr) {
+            if (p->lagu.artist == keyword) {
+                cout << "[" << p->lagu.idLagu << "] "
+                     << p->lagu.title << " - " << p->lagu.artist
+                     << " | " << p->lagu.genre
+                     << " | " << p->lagu.duration << "s\n";
+            }
+            p = p->next;
+        }
+    }else {
+        cout << "\nDaftar lagu dengan genre" << keyword << ":\n";
+        address p = MusicLibrary.First;
+        while (p != nullptr) {
+            if (p->lagu.genre == keyword) {
+                cout << "[" << p->lagu.idLagu << "] "
+                     << p->lagu.title << " - " << p->lagu.artist
+                     << " | " << p->lagu.genre
+                     << " | " << p->lagu.duration << "s\n";
+            }
+            p = p->next;
+        }
+    }
 }
 // Fungsi User putar lagu
 void userPlaySong() {
@@ -237,7 +268,7 @@ void userPlaySong() {
     cout << "Masukkan ID Lagu yang ingin diputar: ";
     cin >> idLagu;
     // Proses memutar lagu dari database
-    cout << "Memutar lagu dengan ID: " << idLagu << endl;
+    cout << "▶ Memutar lagu dengan ID: " << idLagu << endl;
 }
 // Fungsi User stop lagu
 void userStopSong() {
