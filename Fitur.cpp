@@ -226,9 +226,9 @@ void viewSongs() {
 // Fungsi cari lagu
 void userFindSong() {
     string keyword;
-    address cari = findSong(keyword);
     cout << "Masukkan kata kunci untuk mencari lagu: ";
     cin >> keyword;
+    address cari = findSong(keyword);
     // Proses pencarian lagu dari database
     cout << "Mencari lagu dengan kata kunci: " << keyword << endl;
     if (cari->lagu.title == keyword) {
