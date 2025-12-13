@@ -115,7 +115,7 @@ Cara Menjalankan Program (Menggunakan Code::Blocks)
 
     Jika tidak ada error, jendela console akan terbuka otomatis.
 
-    Program Music Player siap digunakan.
+    Program Musik Player siap digunakan.
 
 5. Penggunaan Program
 
@@ -133,3 +133,4 @@ Cara Menjalankan Program (Menggunakan Code::Blocks)
 
 
     Navigasi menu dilakukan dengan memasukkan angka sesuai pilihan.
+
