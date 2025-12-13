@@ -286,25 +286,25 @@ void userNextSong() {
         return;
     }
 
-    address current = nowPlaying->data;
-    address p = current->next;
+    address laguSekarang = nowPlaying->data;
+    address p = laguSekarang->next;
 
     while (p != nullptr) {
-        if (p->lagu.genre == current->lagu.genre ||
-            p->lagu.artist == current->lagu.artist) {
+        if (p->lagu.genre == laguSekarang->lagu.genre ||
+            p->lagu.artist == laguSekarang->lagu.artist) {
 
-            addrQ q = new ElmQueue;
-            q->data = p;
-            q->next = nullptr;
-            q->prev = nowPlaying;
+            addrQ nodeBaru = new ElmQueue;
+            nodeBaru->data = p;
+            nodeBaru->next = nullptr;
+            nodeBaru->prev = nowPlaying;
 
-            nowPlaying->next = q;
-            SongQueue.Tail = q;
-            nowPlaying = q;
+            nowPlaying->next = nodeBaru;
+            SongQueue.Tail = nodeBaru;
+            nowPlaying = nodeBaru;
 
             cout << "Memutar lagu berikutnya: "
-                 << p->lagu.title
-                 << " - " << p->lagu.artist << endl;
+                 << nowPlaying->data->lagu.title
+                 << " - " << nowPlaying->data->lagu.artist << endl;
             return;
         }
         p = p->next;
@@ -315,23 +315,23 @@ void userNextSong() {
         return;
     }
 
-    addrQ q = new ElmQueue;
-    q->data = MusicLibrary.First;
-    q->next = nullptr;
-    q->prev = nowPlaying;
+    addrQ nodeBaru = new ElmQueue;
+    nodeBaru->data = MusicLibrary.First;
+    nodeBaru->next = nullptr;
+    nodeBaru->prev = nowPlaying;
 
-    nowPlaying->next = q;
-    SongQueue.Tail = q;
-    nowPlaying = q;
+    nowPlaying->next = nodeBaru;
+    SongQueue.Tail = nodeBaru;
+    nowPlaying = nodeBaru;
 
     cout << "Memutar lagu berikutnya: "
-         << MusicLibrary.First->lagu.title
-         << " - " << MusicLibrary.First->lagu.artist << endl;
+         << nowPlaying->data->lagu.title
+         << " - " << nowPlaying->data->lagu.artist << endl;
 }
 // Fungsi User previous lagu
 void userPreviousSong() {
     // Proses memutar lagu sebelumnya
-     if (nowPlaying == nullptr) {
+    if (nowPlaying == nullptr) {
         cout << "Belum ada lagu yang diputar.\n";
         return;
     }
@@ -344,25 +344,31 @@ void userPreviousSong() {
         return;
     }
 
-    address prevSong = findPrevByGenreOrArtist(nowPlaying->data);
+    address laguSekarang = nowPlaying->data;
+    address p = laguSekarang->prev;
 
-    if (prevSong == nullptr) {
-        cout << "Tidak ada lagu sebelumnya dengan genre atau penyanyi yang sama.\n";
-        return;
+    while (p != nullptr) {
+        if (p->lagu.genre == laguSekarang->lagu.genre ||
+            p->lagu.artist == laguSekarang->lagu.artist) {
+
+            addrQ nodeBaru = new ElmQueue;
+            nodeBaru->data = p;
+            nodeBaru->prev = nullptr;
+            nodeBaru->next = nowPlaying;
+
+            nowPlaying->prev = nodeBaru;
+            SongQueue.Head = nodeBaru;
+            nowPlaying = nodeBaru;
+
+            cout << "Memutar lagu sebelumnya: "
+                 << nowPlaying->data->lagu.title
+                 << " - " << nowPlaying->data->lagu.artist << endl;
+            return;
+        }
+        p = p->prev;
     }
 
-    addrQ q = new ElmQueue;
-    q->data = prevSong;
-    q->next = nowPlaying;
-    q->prev = nullptr;
-
-    nowPlaying->prev = q;
-    SongQueue.Head = q;
-    nowPlaying = q;
-
-    cout << "Memutar lagu sebelumnya: "
-         << nowPlaying->data->lagu.title
-         << " - " << nowPlaying->data->lagu.artist << endl;
+    cout << "Tidak ada lagu sebelumnya.\n";
 }
 
 // Playlist
