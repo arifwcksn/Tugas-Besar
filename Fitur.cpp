@@ -25,6 +25,14 @@ address findSong(string keyword) {
     }
     return nullptr;
 }
+void addFavorit(address Lagu) {
+    addrFav fav = new ElmFavorit;
+    fav->data = Lagu;
+    fav->next = FirstFavorit;
+    Favorit = fav;
+
+    cout << "Lagu ditambahkan ke daftar favorit.\n";
+}
 
 // 1. Menu
 // Fungsi untuk menampilkan menu utama
@@ -159,6 +167,7 @@ void userMenu() {
     cout << "6. Previous Lagu" << endl;
     cout << "7. Playlist" << endl;
     cout << "8. Logout" << endl;
+    cout << "9. Tampilkan Favorit" << endl;
     cin >> pilihan;
 
     switch (pilihan) {
@@ -186,6 +195,8 @@ void userMenu() {
         case 8:
             menuUtama();
             break;
+        case 9:
+            displayFavorit();
         default:
             cout << "Input salah!" << endl;
             userMenu();
@@ -250,7 +261,7 @@ void userFindSong() {
             }
             p = p->next;
         }
-    }else {
+    }else if (cari->lagu.genre == keyword) {
         cout << "\nDaftar lagu dengan genre" << keyword << ":\n";
         address p = MusicLibrary.First;
         while (p != nullptr) {
@@ -262,15 +273,49 @@ void userFindSong() {
             }
             p = p->next;
         }
+    } else {
+        cout << "Lagu tidak ditemukan"
     }
 }
 // Fungsi User putar lagu
 void userPlaySong() {
-    string idLagu;
-    cout << "Masukkan ID Lagu yang ingin diputar: ";
-    cin >> idLagu;
+    string keyword;
+    cout << "Masukkan ID/judul Lagu yang ingin diputar: ";
+    cin >> keyword;
     // Proses memutar lagu dari database
-    cout << "▶ Memutar lagu dengan ID: " << idLagu << endl;
+    address Lagu = MusicLibrary.First;
+    while (Lagu != nullptr && (Lagu->lagu.idLagu != keyword && Lagu->lagu.title != keyword)) {
+        Lagu = Lagu->next;
+    }
+
+    if (Lagu == nullptr) {
+        cout << "Lagu tidak ditemukan!" << endl;
+        return;
+    }
+
+    addrQ antrian = new ElmQueue;
+    antrian->data = Lagu;
+    antrian->next = nullptr;
+    antrian->prev = nullptr;
+
+    if (SongQueue.Head == nullptr) {
+        SongQueue.Head = SongQueue.Tail = antrian;
+    } else {
+        antrian->prev = SongQueue.Tail;
+        SongQueue.Tail->next = antrian;
+        SongQueue.Tail = antrian;
+    }
+
+    nowPlaying = antrian;
+
+    cout << "Memutar lagu: "
+         << Lagu->lagu.title
+         << " - " << Lagu->lagu.artist << endl;
+    char favorit;
+    cout << "Apakah Lagu ini favorit anda [y/n]?";
+    if (favorit == "y" || favorit == "Y") {
+        addFavorit(Lagu)
+    } 
 }
 // Fungsi User stop lagu
 void userStopSong() {
@@ -418,7 +463,25 @@ void userPlaylistMenu() {
             break;
     }
 }
+
+void displayFavorit() {
+    if (Favorit == nullptr) {
+        cout << "Belum ada lagu favorit.\n";
+        return;
+    }
+
+    cout << "\n===== DAFTAR LAGU FAVORIT =====\n";
+    addrFav p = Favorit;
+    while (p != nullptr) {
+        cout << "[" << p->data->lagu.idLagu << "] "
+             << p->data->lagu.title << " - "
+             << p->data->lagu.artist << endl;
+        p = p->next;
+    }
+    cout << "==============================\n";
+}
 // Fungsi untuk menampilkan menu playlist
 // Fungsi nambah lagu ke playlist
 // Fungsi hapus lagu dari playlist
 // Fungsi tampil playlist
+
