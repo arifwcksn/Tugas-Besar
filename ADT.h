@@ -1,10 +1,13 @@
+#ifndef ADT_H_INCLUDED
+#define ADT_H_INCLUDED
+
 #include <iostream>
 using namespace std;
 
 // Primitif
 // Double linked list untuk menyimpan data lagu dan playlist
 // Single linked list untuk menyimpan data playlist
-// Queue(DLL) untuk pemutaran lagu 
+// Queue(DLL) untuk pemutaran lagu
 
 struct infotype {
     string idLagu;
@@ -29,7 +32,7 @@ struct ListLagu {
 typedef struct ElmPlaylist *addrPL;
 
 struct ElmPlaylist {
-    address data;           
+    address data;
     addrPL next;
 };
 
@@ -40,7 +43,7 @@ struct ListPlaylist {
 typedef struct ElmQueue *addrQ;
 
 struct ElmQueue {
-    address data;           
+    address data;
     addrQ next;
     addrQ prev;
 };
@@ -53,13 +56,9 @@ struct QueuePlay {
 typedef struct ElmFavorit *addrFav;
 
 struct ElmFavorit {
-    address data;     
+    address data;
     addrFav next;
 };
-
-addrQ nowPlaying = nullptr;
-
-addrFav Favorit = nullptr;
 
 void adminLogin();
 void userMenu();
@@ -76,7 +75,7 @@ void adminUpdateSong();
 void adminDisplaySongs();
 
 void userFindSong();
-void userPlaySong();    
+void userPlaySong();
 void userStopSong();
 void userNextSong();
 void userPreviousSong();
@@ -86,6 +85,18 @@ void currentlyPlayingSong();
 void playlistAddSong();
 void playlistDeleteSong();
 void playlistDisplaySongs();
+void playLaguDariPlaylist();
 
 void addFavorit(address Lagu);
 void displayFavorit();
+
+//Referensi kamus global antar file atau bisa di bilang penghubung antar file
+extern ListLagu MusicLibrary;
+extern ListPlaylist UserPlaylist;
+extern QueuePlay SongQueue;
+extern addrQ nowPlaying;
+extern addrFav Favorit;
+
+
+
+#endif // ADT_H_INCLUDED

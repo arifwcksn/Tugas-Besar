@@ -1,12 +1,11 @@
 #include <iostream>
-#include "Fitur.cpp"
 #include "ADT.h"
 using namespace std;
 
 int main() {
-   kondisiAwal();
+    kondisiAwal();
 
-    string id[3]     = {"L001", "L002", "L003"};
+    string id[3]     = {"001", "002", "003"};
     string title[3]  = {"Fix_You", "Someone_Like_You", "Bohemian_Rhapsody"};
     string artist[3] = {"Coldplay", "Adele", "Queen"};
     string genre[3]  = {"Pop", "Pop", "Rock"};
