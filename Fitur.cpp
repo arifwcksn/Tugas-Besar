@@ -517,51 +517,173 @@ void userPreviousSong() {
 // Fungsi untuk menampilkan menu playlist user
 void userPlaylistMenu() {
     int pilihan;
-    cout << "Menu Playlist" << endl;
-    cout << "1. Tambah Lagu ke Playlist" << endl;
-    cout << "2. Hapus Lagu dari Playlist" << endl;
-    cout << "3. Tampilkan Playlist" << endl;
-    cout << "4. Kembali ke Menu User" << endl;
+    cout << "\n===== MENU PLAYLIST =====\n";
+    cout << "1. Tambah Lagu ke Playlist\n";
+    cout << "2. Hapus Lagu dari Playlist\n";
+    cout << "3. Tampilkan Playlist\n";
+    cout << "4. Putar Lagu dari Playlist\n";
+    cout << "5. Kembali ke Menu User\n";
+    cout << "Pilihan Anda: ";
     cin >> pilihan;
 
     switch (pilihan) {
         case 1:
-            // Fungsi nambah lagu ke playlist
+            tambahkanLaguPlaylist();
             break;
         case 2:
-            // Fungsi hapus lagu dari playlist
+            hapusLaguPlaylist();
             break;
         case 3:
-            // Fungsi tampil playlist
+            tampilkanPlaylist();
             break;
         case 4:
+            playLaguDariPlaylist();
+            break;
+        case 5:
             userMenu();
             break;
         default:
-            cout << "Input salah!" << endl;
+            cout << "Input salah!\n";
             userPlaylistMenu();
             break;
     }
 }
+// Fungsi nambah lagu ke playlist
+void tambahkanLaguPlaylist() {
+    viewSongs();
 
-void displayFavorit() {
-    if (Favorit == nullptr) {
-        cout << "Belum ada lagu favorit.\n";
+    string keyword;
+    cout << "Masukkan ID / Judul lagu yang ingin ditambahkan ke playlist: ";
+    cin >> keyword;
+
+    address lagu = MusicLibrary.First;
+    while (lagu != nullptr &&
+           lagu->lagu.idLagu != keyword &&
+           lagu->lagu.title != keyword) {
+        lagu = lagu->next;
+    }
+
+    if (lagu == nullptr) {
+        cout << "Lagu tidak ditemukan.\n";
         return;
     }
 
-    cout << "\n===== DAFTAR LAGU FAVORIT =====\n";
-    addrFav p = Favorit;
+    addrPL nodeBaru = new ElmPlaylist;
+    nodeBaru->data = lagu;
+    nodeBaru->next = nullptr;
+
+    if (UserPlaylist.First == nullptr) {
+        UserPlaylist.First = nodeBaru;
+    } else {
+        addrPL p = UserPlaylist.First;
+        while (p->next != nullptr) {
+            p = p->next;
+        }
+        p->next = nodeBaru;
+    }
+
+    cout << "Lagu berhasil ditambahkan ke playlist.\n";
+}
+
+// Fungsi hapus lagu dari playlist
+void hapusLaguPlaylist() {
+    if (UserPlaylist.First == nullptr) {
+        cout << "Playlist kosong.\n";
+        return;
+    }
+
+    tampilkanPlaylist();
+
+    string id;
+    cout << "Masukkan ID lagu yang ingin dihapus dari playlist: ";
+    cin >> id;
+
+    addrPL p = UserPlaylist.First;
+    addrPL prev = nullptr;
+
+    while (p != nullptr && p->data->lagu.idLagu != id) {
+        prev = p;
+        p = p->next;
+    }
+
+    if (p == nullptr) {
+        cout << "Lagu tidak ditemukan di playlist.\n";
+        return;
+    }
+
+    if (prev == nullptr) {
+        UserPlaylist.First = p->next;
+    } else {
+        prev->next = p->next;
+    }
+
+    delete p;
+    cout << "Lagu berhasil dihapus dari playlist.\n";
+}
+// Fungsi tampil playlist
+void tampilkanPlaylist() {
+    if (UserPlaylist.First == nullptr) {
+        cout << "Playlist masih kosong.\n";
+        return;
+    }
+
+    cout << "\n===== PLAYLIST USER =====\n";
+    addrPL p = UserPlaylist.First;
     while (p != nullptr) {
         cout << "[" << p->data->lagu.idLagu << "] "
              << p->data->lagu.title << " - "
              << p->data->lagu.artist << endl;
         p = p->next;
     }
-    cout << "==============================\n";
+    cout << "=========================\n";
 }
-// Fungsi untuk menampilkan menu playlist
-// Fungsi nambah lagu ke playlist
-// Fungsi hapus lagu dari playlist
-// Fungsi tampil playlist
+// play lagu yang di play di playlist
+void playLaguDariPlaylist() {
+    if (UserPlaylist.First == nullptr) {
+        cout << "Playlist masih kosong.\n";
+        return;
+    }
+
+    tampilkanPlaylist();
+
+    string id;
+    cout << "Masukkan ID lagu yang ingin diputar: ";
+    cin >> id;
+
+    addrPL p = UserPlaylist.First;
+    address laguDipilih = nullptr;
+
+    while (p != nullptr) {
+        if (p->data->lagu.idLagu == id) {
+            laguDipilih = p->data;
+            break;
+        }
+        p = p->next;
+    }
+
+    if (laguDipilih == nullptr) {
+        cout << "Lagu tidak ditemukan di playlist.\n";
+        return;
+    }
+
+    addrQ nodeBaru = new ElmQueue;
+    nodeBaru->data = laguDipilih;
+    nodeBaru->next = nullptr;
+    nodeBaru->prev = nullptr;
+
+    if (SongQueue.Head == nullptr) {
+        SongQueue.Head = SongQueue.Tail = nodeBaru;
+    } else {
+        nodeBaru->prev = SongQueue.Tail;
+        SongQueue.Tail->next = nodeBaru;
+        SongQueue.Tail = nodeBaru;
+    }
+
+    nowPlaying = nodeBaru;
+
+    cout << "Memutar lagu dari playlist: "
+         << laguDipilih->lagu.title
+         << " - " << laguDipilih->lagu.artist << endl;
+}
+
 
