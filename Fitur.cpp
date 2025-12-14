@@ -7,6 +7,7 @@ using namespace std;
 // Double linked list untuk menyimpan data lagu dan playlist
 // Single linked list untuk menyimpan data playlist
 // Queue(DLL) untuk pemutaran lagu
+
 //kamus global
     ListLagu MusicLibrary;
     ListPlaylist UserPlaylist;
@@ -512,28 +513,16 @@ void userPreviousSong() {
 // Fungsi untuk menampilkan menu playlist user
 void userPlaylistMenu() {
     int pilihan;
-<<<<<<< HEAD
     do {
-        cout << "\n===== PLAYLIST =====\n";
-        cout << "1. Tambah\n";
-        cout << "2. Hapus\n";
-        cout << "3. Tampilkan\n";
-        cout << "4. Putar\n";
-        cout << "5. Kembali\n";
-        cout << "Pilihan: ";
+        cout << "\n===== MENU PLAYLIST =====\n";
+        cout << "1. Tambah Lagu ke Playlist\n";
+        cout << "2. Hapus Lagu dari Playlist\n";
+        cout << "3. Tampilkan Playlist\n";
+        cout << "4. Putar Lagu dari Playlist\n";
+        cout << "5. Kembali ke Menu User\n";
+        cout << "Pilihan Anda: ";
         cin >> pilihan;
-=======
-    cout << "\n===== MENU PLAYLIST =====\n";
-    cout << "1. Tambah Lagu ke Playlist\n";
-    cout << "2. Hapus Lagu dari Playlist\n";
-    cout << "3. Tampilkan Playlist\n";
-    cout << "4. Putar Lagu dari Playlist\n";
-    cout << "5. Kembali ke Menu User\n";
-    cout << "Pilihan Anda: ";
-    cin >> pilihan;
->>>>>>> a89f26c1be96759534e95c7cd90c2b0af12dd4fc
 
-<<<<<<< HEAD
         switch (pilihan) {
             case 1:
                 playlistAddSong();
@@ -549,127 +538,24 @@ void userPlaylistMenu() {
                 break;
         }
     } while (pilihan != 5);
-=======
-    switch (pilihan) {
-        case 1:
-            tambahkanLaguPlaylist();
-            break;
-        case 2:
-            hapusLaguPlaylist();
-            break;
-        case 3:
-            tampilkanPlaylist();
-            break;
-        case 4:
-            playLaguDariPlaylist();
-            break;
-        case 5:
-            userMenu();
-            break;
-        default:
-            cout << "Input salah!\n";
-            userPlaylistMenu();
-            break;
-    }
->>>>>>> a89f26c1be96759534e95c7cd90c2b0af12dd4fc
 }
-<<<<<<< HEAD
-//fungsi menampilakn semua lagu favorit
+//fungsi menampilkan semua lagu favorit
 void displayFavorit() {
     if (Favorit == nullptr) {
         cout << "Belum ada lagu favorit.\n";
-=======
-// Fungsi nambah lagu ke playlist
-void tambahkanLaguPlaylist() {
-    viewSongs();
-
-    string keyword;
-    cout << "Masukkan ID / Judul lagu yang ingin ditambahkan ke playlist: ";
-    cin >> keyword;
-
-    address lagu = MusicLibrary.First;
-    while (lagu != nullptr &&
-           lagu->lagu.idLagu != keyword &&
-           lagu->lagu.title != keyword) {
-        lagu = lagu->next;
-    }
-
-    if (lagu == nullptr) {
-        cout << "Lagu tidak ditemukan.\n";
->>>>>>> a89f26c1be96759534e95c7cd90c2b0af12dd4fc
         return;
     }
 
-    addrPL nodeBaru = new ElmPlaylist;
-    nodeBaru->data = lagu;
-    nodeBaru->next = nullptr;
-
-    if (UserPlaylist.First == nullptr) {
-        UserPlaylist.First = nodeBaru;
-    } else {
-        addrPL p = UserPlaylist.First;
-        while (p->next != nullptr) {
-            p = p->next;
-        }
-        p->next = nodeBaru;
-    }
-
-    cout << "Lagu berhasil ditambahkan ke playlist.\n";
-}
-
-// Fungsi hapus lagu dari playlist
-void hapusLaguPlaylist() {
-    if (UserPlaylist.First == nullptr) {
-        cout << "Playlist kosong.\n";
-        return;
-    }
-
-    tampilkanPlaylist();
-
-    string id;
-    cout << "Masukkan ID lagu yang ingin dihapus dari playlist: ";
-    cin >> id;
-
-    addrPL p = UserPlaylist.First;
-    addrPL prev = nullptr;
-
-    while (p != nullptr && p->data->lagu.idLagu != id) {
-        prev = p;
-        p = p->next;
-    }
-
-    if (p == nullptr) {
-        cout << "Lagu tidak ditemukan di playlist.\n";
-        return;
-    }
-
-    if (prev == nullptr) {
-        UserPlaylist.First = p->next;
-    } else {
-        prev->next = p->next;
-    }
-
-    delete p;
-    cout << "Lagu berhasil dihapus dari playlist.\n";
-}
-// Fungsi tampil playlist
-void tampilkanPlaylist() {
-    if (UserPlaylist.First == nullptr) {
-        cout << "Playlist masih kosong.\n";
-        return;
-    }
-
-    cout << "\n===== PLAYLIST USER =====\n";
-    addrPL p = UserPlaylist.First;
+    cout << "\n===== DAFTAR LAGU FAVORIT =====\n";
+    addrFav p = Favorit;
     while (p != nullptr) {
         cout << "[" << p->data->lagu.idLagu << "] "
              << p->data->lagu.title << " - "
              << p->data->lagu.artist << endl;
         p = p->next;
     }
-    cout << "=========================\n";
+    cout << "==============================\n";
 }
-<<<<<<< HEAD
 
 // Fungsi nambah lagu ke playlist
 void playlistAddSong() {
@@ -749,16 +635,7 @@ void playlistDisplaySongs() {
         cout << "Playlist masih kosong.\n";
         return;
     }
-=======
-// play lagu yang di play di playlist
-void playLaguDariPlaylist() {
-    if (UserPlaylist.First == nullptr) {
-        cout << "Playlist masih kosong.\n";
-        return;
-    }
->>>>>>> a89f26c1be96759534e95c7cd90c2b0af12dd4fc
 
-<<<<<<< HEAD
     cout << "\n===== PLAYLIST USER =====\n";
     addrPL p = UserPlaylist.First;
     while (p != nullptr) {
@@ -769,11 +646,7 @@ void playLaguDariPlaylist() {
     }
     cout << "=========================\n";
 }
-=======
-    tampilkanPlaylist();
->>>>>>> a89f26c1be96759534e95c7cd90c2b0af12dd4fc
 
-<<<<<<< HEAD
 void playLaguDariPlaylist() {
     if (UserPlaylist.First == nullptr) {
         cout << "Playlist masih kosong.\n";
@@ -823,48 +696,3 @@ void playLaguDariPlaylist() {
 }
 
 
-
-=======
-    string id;
-    cout << "Masukkan ID lagu yang ingin diputar: ";
-    cin >> id;
-
-    addrPL p = UserPlaylist.First;
-    address laguDipilih = nullptr;
-
-    while (p != nullptr) {
-        if (p->data->lagu.idLagu == id) {
-            laguDipilih = p->data;
-            break;
-        }
-        p = p->next;
-    }
-
-    if (laguDipilih == nullptr) {
-        cout << "Lagu tidak ditemukan di playlist.\n";
-        return;
-    }
-
-    addrQ nodeBaru = new ElmQueue;
-    nodeBaru->data = laguDipilih;
-    nodeBaru->next = nullptr;
-    nodeBaru->prev = nullptr;
-
-    if (SongQueue.Head == nullptr) {
-        SongQueue.Head = SongQueue.Tail = nodeBaru;
-    } else {
-        nodeBaru->prev = SongQueue.Tail;
-        SongQueue.Tail->next = nodeBaru;
-        SongQueue.Tail = nodeBaru;
-    }
-
-    nowPlaying = nodeBaru;
-
-    cout << "Memutar lagu dari playlist: "
-         << laguDipilih->lagu.title
-         << " - " << laguDipilih->lagu.artist << endl;
-}
-
-
-
->>>>>>> a89f26c1be96759534e95c7cd90c2b0af12dd4fc
