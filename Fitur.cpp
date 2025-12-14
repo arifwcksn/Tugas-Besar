@@ -38,10 +38,11 @@ void addFavorit(address Lagu) {
 // Fungsi untuk menampilkan menu utama
 void menuUtama() {
     int pilihan;
-    cout << "App Music Player" << endl;
+    cout << "================== App Music Player ==================" << endl;
     cout << "1. Login as Admin" << endl;
     cout << "2. Login as User" << endl;
     cout << "3. Exit" << endl;
+    cout << "Pilihan Anda: ";
     cin >> pilihan;
 
     switch (pilihan) {
@@ -103,7 +104,7 @@ void adminMenu() {
             adminUpdateSong();
             break;
         case 4:
-            adminDisplaySongs();
+            viewSongs();
             break;
         case 5:
             menuUtama();
@@ -117,37 +118,111 @@ void adminMenu() {
 
 // Fungsi Admin nambah lagu
 void adminAddSong() {
-    string namaLagu, namaArtis, genreLagu, idLagu;
-    int durasiLagu;
+    address newSong = new Song;
     // Admin memasukan lagu baru
     cout << "Input Id Lagu Baru: ";
-    cin >> idLagu;
+    cin >> newSong->Lagu.idLagu;
     cout << "Nama Lagu Baru: ";
-    cin >> namaLagu;
+    cin >> newSong->Lagu.title;
     cout << "Nama Artis lagu: ";
-    cin >> namaArtis;
+    cin >> newSong->lagu.artist;
     cout << "Durasi Lagu (dalam detik): ";
-    cin >> durasiLagu;
+    cin >> newSong->lagu.duration;
     cout << "Genre Lagu: ";
-    cin >> genreLagu;
+    cin >> newSong->lagu.genre;
 
     // proses insert lagu ke database
+    newSong->next = nullptr;
+    newSong->prev = nullptr;
 
-    cout << "Lagu" << namaLagu << "berhasil ditambahkan!" << endl;
+    if (MusicLibrary.First == nullptr) {
+        MusicLibrary.First = newSong;
+        MusicLibrary.Last = newSong;
+    } else {
+        newSong->prev = MusicLibrary.Last;
+        MusicLibrary.Last->next = newSong;
+        MusicLibrary.Last = newSong;
+    }
+
+    cout << "Lagu berhasil ditambahkan!" << endl;
+    adminMenu();
 }
 // Fungsi Admin hapus lagu
 void adminDeleteSong() {
     viewSongs();
+
+    string id;
+    cout << "Masukkan ID Lagu yang ingin dihapus: ";
+    cin >> id;
+
+    address p = MusicLibrary.First;
+
+    while (temp != nullptr && p->lagu.idLagu != id) {
+        p = p->next;
+    }
+
+    if (p == nullptr) {
+        cout << "Lagu tidak ditemukan!" << endl;
+        adminMenu();
+        return;
+    }
+
+    // Jika hanya satu lagu
+    if (p == MusicLibrary.First && p == MusicLibrary.Last) {
+        MusicLibrary.First = nullptr;
+        MusicLibrary.Last  = nullptr;
+    }
+    // Jika di awal
+    else if (p == MusicLibrary.First) {
+        MusicLibrary.First = temp->next;
+        MusicLibrary.First->prev = nullptr;
+    }
+    // Jika di akhir
+    else if (p == MusicLibrary.Last) {
+        MusicLibrary.Last = p->prev;
+        MusicLibrary.Last->next = nullptr;
+    }
+    // Jika di tengah
+    else {
+        p->prev->next = p->next;
+        p->next->prev = p->prev;
+    }
+
+    delete p;
+    cout << "Lagu berhasil dihapus!" << endl;
+    adminMenu();
 }
 
 // Fungsi Admin update lagu
 void adminUpdateSong() {
+    viewSongs();
+    string id;
+    cout << "Masukkan ID Lagu yang ingin diupdate: ";
+    cin >> id;
 
-}
+    address p = MusicLibrary.First;
 
-// Fungsi Admin tampil lagu
-void adminDisplaySongs() {
+    while (p != nullptr && p->lagu.idLagu != id) {
+        p = p->next;
+    }
 
+    if (p == nullptr) {
+        cout << "Lagu tidak ditemukan!" << endl;
+        adminMenu();
+        return;
+    }
+
+    cout << "Judul Baru   : ";
+    cin >> p->lagu.title;
+    cout << "Artis Baru   : ";
+    cin >> p->lagu.artist;
+    cout << "Durasi Baru  : ";
+    cin >> p->lagu.duration;
+    cout << "Genre Baru   : ";
+    cin >> p->lagu.genre;
+
+    cout << "Data lagu berhasil diperbarui!" << endl;
+    adminMenu();
 }
 
 // 3. User
