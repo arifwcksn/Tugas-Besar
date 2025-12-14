@@ -123,9 +123,9 @@ Cara Menjalankan Program (Menggunakan Code::Blocks)
 
 6. Penggunaan Program
 
-       Pilih Login sebagai Admin untuk mengelola data lagu.
+   Pilih Login sebagai Admin untuk mengelola data lagu.
    
-       Pilih Login sebagai User untuk:
+   Pilih Login sebagai User untuk:
    
        Menampilkan dan mencari lagu
    
@@ -135,7 +135,7 @@ Cara Menjalankan Program (Menggunakan Code::Blocks)
    
        Mengelola playlist dan lagu favorit
    
-   
-       Navigasi menu dilakukan dengan memasukkan angka sesuai pilihan.
+   Navigasi menu dilakukan dengan memasukkan angka sesuai pilihan.
+
 
 
