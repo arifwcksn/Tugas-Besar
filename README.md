@@ -1,6 +1,7 @@
 ﻿# Tugas-Besar
 
 🎵 Aplikasi Musik Player Berbasis Struktur Data
+
 Deskripsi Program:
 
 Aplikasi Music Player ini merupakan program berbasis bahasa C++ yang dibuat untuk memenuhi Tugas Besar Mata Kuliah Struktur Data.
@@ -45,6 +46,7 @@ Digunakan untuk:
     Menyimpan daftar lagu playlist
 
 Fitur Aplikasi
+
 Fitur Admin
 
     Login sebagai Admin
@@ -80,57 +82,60 @@ Fitur User
 Cara Menjalankan Program (Menggunakan Code::Blocks)
 1. Membuka Project
 
-    Jalankan aplikasi Code::Blocks.
-
-    Pilih menu File → New → Project.
-
-    Pilih Console Application, lalu klik Next.
-
-    Pilih bahasa C++, kemudian klik Next.
-
-    Tentukan nama project dan lokasi penyimpanan, lalu klik Finish.
+       Jalankan aplikasi Code::Blocks.
+   
+       Pilih menu File → New → Project.
+   
+       Pilih Console Application, lalu klik Next.
+   
+       Pilih bahasa C++, kemudian klik Next.
+   
+       Tentukan nama project dan lokasi penyimpanan, lalu klik Finish.
 
 2. Menambahkan File ke Project
 
-    Klik kanan pada nama project → Add files…
-
-    Tambahkan file berikut:
-
-    main.cpp
-
-    header.h
-
-    source.cpp
-
-    Isi masing-masing file dengan kode program Aplikasi Musik Player yang sesuai
+       Klik kanan pada nama project → Add files…
+   
+       Tambahkan file berikut:
+   
+       main.cpp
+   
+       header.h
+   
+       source.cpp
+   
+       Isi masing-masing file dengan kode program Aplikasi Musik Player yang sesuai
 
 3. Menghubungkan Header dan Source serta main
-    Caranya adalah dengan menggunakan command #include "ADT.h"
-    Terkadang juga harus menambahkan using namespace std ke semua file 
 
-4. Build dan Run Program
+       Caranya adalah dengan menggunakan command #include "ADT.h"
+   
+       Terkadang juga harus menambahkan using namespace std ke semua file 
 
-    Pilih menu Build → Build and Run
-    atau tekan F9.
+5. Build dan Run Program
 
-    Jika tidak ada error, jendela console akan terbuka otomatis.
+       Pilih menu Build → Build and Run
+       atau tekan F9.
+   
+       Jika tidak ada error, jendela console akan terbuka otomatis.
+   
+       Program Musik Player siap digunakan.
 
-    Program Musik Player siap digunakan.
+6. Penggunaan Program
 
-5. Penggunaan Program
+       Pilih Login sebagai Admin untuk mengelola data lagu.
+   
+       Pilih Login sebagai User untuk:
+   
+       Menampilkan dan mencari lagu
+   
+       Memutar lagu
+   
+       Menggunakan fitur Next dan Previous
+   
+       Mengelola playlist dan lagu favorit
+   
+   
+       Navigasi menu dilakukan dengan memasukkan angka sesuai pilihan.
 
-    Pilih Login sebagai Admin untuk mengelola data lagu.
-
-    Pilih Login sebagai User untuk:
-
-    Menampilkan dan mencari lagu
-
-    Memutar lagu
-
-    Menggunakan fitur Next dan Previous
-
-    Mengelola playlist dan lagu favorit
-
-
-    Navigasi menu dilakukan dengan memasukkan angka sesuai pilihan.
 
