@@ -7,7 +7,7 @@ using namespace std;
 // Queue(DLL) untuk pemutaran lagu 
 
 
-void KondisiAwal() {
+void kondisiAwal() {
     MusicLibrary.First = nullptr;
     MusicLibrary.Last  = nullptr;
     UserPlaylist.First = nullptr;
