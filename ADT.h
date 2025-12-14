@@ -26,8 +26,6 @@ struct ListLagu {
     address Last;
 };
 
-ListLagu MusicLibrary;
-
 typedef struct ElmPlaylist *addrPL;
 
 struct ElmPlaylist {
@@ -38,8 +36,6 @@ struct ElmPlaylist {
 struct ListPlaylist {
     addrPL First;
 };
-
-ListPlaylist UserPlaylist;
 
 typedef struct ElmQueue *addrQ;
 
@@ -60,8 +56,6 @@ struct ElmFavorit {
     address data;     
     addrFav next;
 };
-
-QueuePlay SongQueue;
 
 addrQ nowPlaying = nullptr;
 

@@ -6,6 +6,11 @@ using namespace std;
 // Single linked list untuk menyimpan data playlist
 // Queue(DLL) untuk pemutaran lagu 
 
+//kamus global
+ListLagu MusicLibrary;
+ListPlaylist UserPlaylist;
+QueuePlay SongQueue;
+
 
 void kondisiAwal() {
     MusicLibrary.First = nullptr;
