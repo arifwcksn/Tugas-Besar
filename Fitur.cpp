@@ -519,7 +519,9 @@ void userPlaylistMenu() {
         cout << "2. Hapus Lagu dari Playlist\n";
         cout << "3. Tampilkan Playlist\n";
         cout << "4. Putar Lagu dari Playlist\n";
-        cout << "5. Kembali ke Menu User\n";
+        cout << "5. Putar Lagu selanjutnya dari Playlist\n";
+        cout << "6. Putar Lagu sebelumnya dari Playlist\n";
+        cout << "7. Kembali ke Menu User\n";
         cout << "Pilihan Anda: ";
         cin >> pilihan;
 
@@ -536,8 +538,14 @@ void userPlaylistMenu() {
             case 4:
                 playLaguDariPlaylist();
                 break;
+            case 5:
+                userNextSong();
+                break;
+            case 6:
+                userPreviousSong();
+                break;
         }
-    } while (pilihan != 5);
+    } while (pilihan != 7);
 }
 //fungsi menampilkan semua lagu favorit
 void displayFavorit() {
