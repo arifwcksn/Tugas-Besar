@@ -1,7 +1,7 @@
 #ifndef ADT_H_INCLUDED
 #define ADT_H_INCLUDED
-
 #include <iostream>
+
 using namespace std;
 
 // Primitif
@@ -90,6 +90,7 @@ void playLaguDariPlaylist();
 void addFavorit(address Lagu);
 void displayFavorit();
 
+
 //Referensi kamus global antar file atau bisa di bilang penghubung antar file
 extern ListLagu MusicLibrary;
 extern ListPlaylist UserPlaylist;
@@ -97,6 +98,11 @@ extern QueuePlay SongQueue;
 extern addrQ nowPlaying;
 extern addrFav Favorit;
 
+//perbaikan
+bool isIdExist(string id);
+bool isInPlaylist(address lagu);
+void removeFromFavorit(address lagu);
+void removeFromPlaylist(address lagu);
 
 
 #endif // ADT_H_INCLUDED

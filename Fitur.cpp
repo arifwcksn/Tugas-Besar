@@ -34,6 +34,14 @@ address findSong(string keyword) {
     return nullptr;
 }
 void addFavorit(address Lagu) {
+    addrFav p = Favorit;
+    while (p != nullptr) {
+        if (p->data == Lagu) {
+            cout << "Lagu sudah ada di favorit.\n";
+            return;
+        }
+        p = p->next;
+    }
     addrFav fav = new ElmFavorit;
     fav->data = Lagu;
     fav->next = Favorit;
@@ -41,6 +49,7 @@ void addFavorit(address Lagu) {
 
     cout << "Lagu ditambahkan ke daftar favorit.\n";
 }
+
 
 // 1. Menu
 // Fungsi untuk menampilkan menu utama
@@ -135,6 +144,12 @@ void adminAddSong() {
     cout << "Genre Lagu: ";
     cin >> newSong->lagu.genre;
 
+    //perbaikan
+    if (isIdExist(newSong->lagu.idLagu)) {
+        cout << "lagu sudah ada! Lagu tidak ditambahkan.\n";
+        delete newSong;
+        return;
+    }
     // proses insert lagu ke database
     newSong->next = nullptr;
     newSong->prev = nullptr;
@@ -170,6 +185,13 @@ void adminDeleteSong() {
         return;
     }
 
+    //perbaikan
+    if (nowPlaying != nullptr && nowPlaying->data == p) {
+        nowPlaying = nullptr;
+        SongQueue.Head = nullptr;
+        SongQueue.Tail = nullptr;
+    }
+
     // Jika hanya satu lagu
     if (p == MusicLibrary.First && p == MusicLibrary.Last) {
         MusicLibrary.First = nullptr;
@@ -190,7 +212,8 @@ void adminDeleteSong() {
         p->prev->next = p->next;
         p->next->prev = p->prev;
     }
-
+    removeFromFavorit(p);
+    removeFromPlaylist(p);
     delete p;
     cout << "Lagu berhasil dihapus!" << endl;
 }
@@ -585,6 +608,13 @@ void playlistAddSong() {
         return;
     }
 
+    // CEK DUPLIKAT DI PLAYLIST
+    if (isInPlaylist(lagu)) {
+        cout << "Lagu sudah ada di playlist.\n";
+        return;
+    }
+
+    // INSERT
     addrPL nodeBaru = new ElmPlaylist;
     nodeBaru->data = lagu;
     nodeBaru->next = nullptr;
@@ -703,4 +733,67 @@ void playLaguDariPlaylist() {
          << " - " << laguDipilih->lagu.artist << endl;
 }
 
+//Perbaikan
 
+bool isIdExist(string id) {
+    address p = MusicLibrary.First;
+    while (p != nullptr) {
+        if (p->lagu.idLagu == id) {
+            return true;
+        }
+        p = p->next;
+    }
+    return false;
+}
+
+void removeFromFavorit(address lagu) {
+    addrFav p = Favorit;
+    addrFav prev = nullptr;
+
+    while (p != nullptr) {
+        if (p->data == lagu) {
+            if (prev == nullptr) {
+                Favorit = p->next;
+            } else {
+                prev->next = p->next;
+            }
+            delete p;
+            return;
+        }
+        prev = p;
+        p = p->next;
+    }
+}
+
+void removeFromPlaylist(address lagu) {
+    addrPL p = UserPlaylist.First;
+    addrPL prev = nullptr;
+
+    while (p != nullptr) {
+        if (p->data == lagu) {
+            if (prev == nullptr) {
+                UserPlaylist.First = p->next;
+            } else {
+                prev->next = p->next;
+            }
+
+            addrPL temp = p;
+            p = p->next;
+            delete temp;
+        } else {
+            prev = p;
+            p = p->next;
+        }
+    }
+}
+
+bool isInPlaylist(address lagu) {
+    addrPL p = UserPlaylist.First;
+    while (p != nullptr) {
+        if (p->data == lagu) {
+            return true;
+        }
+        p = p->next;
+    }
+    return false;
+}
